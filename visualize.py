@@ -6,9 +6,6 @@ import matplotlib
 def plot_logs(logs, save=False, path=None)
     pass
 
-
-
-
 def main():
 
     print("This script will import log files, visualize them, and save generated plots")
