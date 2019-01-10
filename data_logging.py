@@ -87,7 +87,7 @@ def load_log(path, return_type):
                     logs.append(Training_log(this_log_dict))
                 # Otherwise, just append the dictionary to the list
                 else:
-                    logs.append(this_log_dict))
+                    logs.append(this_log_dict)
 
                 # Clear the var for our imported log to be reused
                 this_log_dict = None
