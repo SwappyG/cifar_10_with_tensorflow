@@ -1,0 +1,40 @@
+{
+    "H" : 32,
+    "W" : 32,
+    "C" : 3,
+    "init_func" : "three_layer_net_init",
+    "model" : {
+        "func" : "three_layer_conv_net",
+        "params" : {
+            "FILTERS": [32, 16],
+            "KERNEL_SIZE": [5, 3],
+            "STRIDES": [1, 1],
+            "ACTIVATION": "relu",
+            "NUM_CLASSES": 10
+        }
+    },
+    "loss_func" : "sparse_softmax_cross_entropy_with_logits",
+    "optimizer" : {
+        "func" : "MomentumOptimizer",
+        "params" : {
+            "LEARNING_RATE" : 1e-4,
+            "MOMENTUM" : 0.9,
+            "USE_NESTOROV" : true
+        }
+    },
+    "initializer" : {
+    "type" : "variance_scaling_initializer",
+    "scale" : 2.0
+    },
+
+    "NUM_EPOCHS" : 2,
+    "NUM_TRAINING" : 49000,
+    "NUM_VAL" : 1000,
+    "NUM_TEST" : 10000,
+    "BATCH_SIZE" : 64,
+    "NUM_ITERS" : 110,
+    "DEVICE" : "/cpu:0",
+    "PRINT_FREQ": 50,
+    "REPS" : 2,
+    "LOG_LEVEL" : "basic"
+}
