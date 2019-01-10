@@ -1,0 +1,7 @@
+# exclude everything
+logs/*
+plots/*
+
+# exception to the rule
+!logs/.gitignore
+!plots/.gitignore
