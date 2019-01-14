@@ -25,17 +25,20 @@ class Dataset(object):
             np.random.shuffle(idxs)
         return iter((self.X[i:i+B], self.y[i:i+B]) for i in range(0, N, B))
 
+    def __len__(self):
+        return len(self.X[0])
+
 class Training_log(object):
     def __init__(self, params):
-        self.model = params["model"]
-        self.model_params = params["model_params"]
-        self.optimizer = params["optimizer"]
-        self.optimizer_params = params["optimizer_params"]
-        self.epochs = params["epochs"]
-        self.iterations = params["iterations"]
-        self.batch_size = params["batch_size"]
-        self.run_time = params["run_time"]
-        self.loss_log = params["loss_log"]
-        self.val_log = params["val_log"]
-        self.final_val_acc = params["final_val"]
-        self.rep_ID = params["rep_ID"]
+        self.model = params.get("model")
+        self.model_params = params.get("model_params")
+        self.optimizer = params.get("optimizer")
+        self.optimizer_params = params.get("optimizer_params")
+        self.epochs = params.get("epochs")
+        self.iterations = params.get("iterations")
+        self.batch_size = params.get("batch_size")
+        self.run_time = params.get("run_time")
+        self.loss_log = params.get("loss_log")
+        self.val_log = params.get("val_log")
+        self.final_val_acc = params.get("final_val_acc")
+        self.rep_ID = params.get("rep_ID")

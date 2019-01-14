@@ -17,8 +17,8 @@
     "optimizer" : {
         "func" : "MomentumOptimizer",
         "params" : {
-            "LEARNING_RATE" : 1e-4,
-            "MOMENTUM" : 0.9,
+            "LEARNING_RATE" : 2e-3,
+            "MOMENTUM" : 0.95,
             "USE_NESTOROV" : true
         }
     },
@@ -27,14 +27,14 @@
     "scale" : 2.0
     },
 
-    "NUM_EPOCHS" : 2,
+    "NUM_EPOCHS" : 3,
     "NUM_TRAINING" : 49000,
     "NUM_VAL" : 1000,
     "NUM_TEST" : 10000,
     "BATCH_SIZE" : 64,
-    "NUM_ITERS" : 110,
+    "NUM_ITERS" : 500,
     "DEVICE" : "/cpu:0",
     "PRINT_FREQ": 50,
-    "REPS" : 2,
+    "REPS" : 3,
     "LOG_LEVEL" : "basic"
 }

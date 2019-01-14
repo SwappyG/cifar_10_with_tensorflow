@@ -72,11 +72,15 @@ def load_log(path, return_type):
         # Create a list to hold imported data from each file
         logs = []
 
+        print(f"The following files were found:\n {os.listdir(path)}\n")
+
         # For every file in directory
-        for file in os.listdir(path):
+        for file in sorted(os.listdir(path)):
 
             # Open the file as a read only
-            with open(file, 'r') as fl:
+            with open(os.path.join(path, file), 'r') as fl:
+
+                print(f"Now loading file: {file}")
 
                 # Load the file and parse it as a json
                 this_log_dict = json.load(fl)
@@ -92,8 +96,8 @@ def load_log(path, return_type):
                 # Clear the var for our imported log to be reused
                 this_log_dict = None
 
-            # Return the full list of logs (obj or dict as specified)
-            return logs
+        # Return the full list of logs (obj or dict as specified)
+        return logs
 
     # If the path is a file
     elif os.path.isfile(path):

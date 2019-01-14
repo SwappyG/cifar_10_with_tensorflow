@@ -101,11 +101,14 @@ def run_model(model, train_dset, val_dset, test_dset):
             "run_time" : 0,
             "loss_log" : [0] * model["NUM_ITERS"] * model["NUM_EPOCHS"],
             "val_log" : [0] * (model["NUM_ITERS"] * model["NUM_EPOCHS"]//model["PRINT_FREQ"] + 1),
-            "final_val" : 0,
+            "final_val_acc" : 0,
             "rep_ID" : rep
         }
 
         this_log = Training_log(log_params)
+
+        if model["NUM_ITERS"] > len(train_dset):
+            this_log.num_iters = len(train_dset)
 
         # Train the model
         print("Training the model")
