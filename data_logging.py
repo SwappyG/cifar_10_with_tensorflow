@@ -6,6 +6,7 @@ from cifar_classes import Training_log
 def check_overwrite(file_name):
     # If the file already exists, confirm with user that they want to overwrite
     if os.path.isfile(file_name):
+        return True
         user_input = input("File already exists, are you sure you want to overwrite it? (y,n) : ")
         if user_input == 'y' or user_input == 'Y':
             do_write = True
@@ -14,54 +15,50 @@ def check_overwrite(file_name):
 
     return do_write
 
-def save_logs(logs_list):
+def save_logs(logs_list, folder_name):
 
-    # Get a filename from user to save to
-    input_name = input("\nEnter a file name to log the data, or leave blank to discard it: \n")
-    print()
-    if (input_name == ""):
-        print("Skipped logging, no records will be kept\n")
+    val_acc_list = []
 
-    # If the name isn't blank
-    else:
-        val_acc_list = []
+    # Make the folder if it doesn't exist
+    Path("logs/" + folder_name).mkdir(parents=True, exist_ok=True)
 
-        folder_name = "logs/" + input_name + "/"
-        for num, log in enumerate(logs_list):
-            # Place the file in the logs folder, with .txt extension
-            file_name = folder_name + input_name + "_num_" + str(num) + ".txt"
-            do_write = check_overwrite(file_name)
+    # For every log in logs_list
+    for num, log in enumerate(logs_list):
 
-            # If file doesn't exist, or user ok'ed overwriting, write the log data
-            if do_write:
-                log_dict = vars(log)
-                val_acc_list.append(log_dict["final_val_acc"])
-                Path(folder_name).mkdir(parents=True, exist_ok=True)
-                with open(file_name, 'w') as log_file:
-                    json.dump(log_dict, log_file, indent=4)
-                    print(f"Log written to {file_name} as json")
+        # Place the file in the logs folder, with .txt extension
+        file_name = "logs/" + folder_name + "/" + folder_name + "_num_" + str(num) + ".txt"
+        do_write = check_overwrite(file_name)
+
+        # If file doesn't exist, or user ok'ed overwriting, write the log data
+        if do_write:
+            log_dict = vars(log)
+            val_acc_list.append(log_dict["final_val_acc"])
+
+            with open(file_name, 'w') as log_file:
+                json.dump(log_dict, log_file, indent=4)
+                print(f"Log written to {file_name} as json")
 
 
 
-        if len(logs_list) > 1:
-            summary_dict = vars(logs_list[0])
-            summary_dict.pop("loss_log")
-            summary_dict.pop("val_log")
-            summary_dict.pop("rep_ID")
-            summary_dict["final_val_acc"] = val_acc_list
-            summary_dict["avg_val_acc"] = sum(val_acc_list) / float(len(val_acc_list))
+    if len(logs_list) > 1:
+        summary_dict = vars(logs_list[0])
+        summary_dict.pop("loss_log")
+        summary_dict.pop("val_log")
+        summary_dict.pop("rep_ID")
+        summary_dict["final_val_acc"] = val_acc_list
+        summary_dict["avg_val_acc"] = sum(val_acc_list) / float(len(val_acc_list))
 
-            file_name = folder_name + input_name + "_summary.txt"
-            do_write = check_overwrite(file_name)
+        file_name = "logs/" + folder_name + "/" + folder_name + "_summary.txt"
+        do_write = check_overwrite(file_name)
 
-            # If file doesn't exist, or user ok'ed overwriting, write the log data
-            if do_write:
-                with open(file_name, 'w') as log_file:
-                    json.dump(summary_dict, log_file, indent=4)
-                    print(f"Summary written to {file_name} as json")
+        # If file doesn't exist, or user ok'ed overwriting, write the log data
+        if do_write:
+            with open(file_name, 'w') as log_file:
+                json.dump(summary_dict, log_file, indent=4)
+                print(f"Summary written to {file_name} as json")
 
 
-        print(f"All logs written to folder {folder_name}")
+    print(f"All logs written to folder {folder_name}")
 
 def load_log(path, return_type):
 

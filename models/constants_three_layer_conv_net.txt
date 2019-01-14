@@ -27,12 +27,12 @@
     "scale" : 2.0
     },
 
-    "NUM_EPOCHS" : 3,
+    "NUM_EPOCHS" : 1,
     "NUM_TRAINING" : 49000,
     "NUM_VAL" : 1000,
     "NUM_TEST" : 10000,
     "BATCH_SIZE" : 64,
-    "NUM_ITERS" : 500,
+    "NUM_ITERS" : 100,
     "DEVICE" : "/cpu:0",
     "PRINT_FREQ": 50,
     "REPS" : 3,
